@@ -1,0 +1,15 @@
+class Solution(object):
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        st = ['n']
+        m = {')':'(', '}':'{', ']':'['}
+        for i in s:
+            if i in m:
+                if st.pop()!=m[i]:
+                    return False
+                else:
+                    st.append(i)
+        return len(st)==1
