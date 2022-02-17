@@ -1,0 +1,14 @@
+class Solution(object):
+    def countBinarySubstrings(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        flips = [0]
+        for i in range(1, len(s)):
+            if s[i]!=s[i-1]:
+                flips.append(i)
+        flips.append(len(s))
+        chunks = [a-b for a,b in zip(flips[1:], flips)]
+        res = sum(min(p, q) for p, q in zip(chunks, chunks[1:]))
+        return res
