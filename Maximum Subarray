@@ -1,0 +1,21 @@
+class Solution(object):
+    def maxSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        s = 0
+        m = min(nims)
+        str_idx, end_idx = 0, 0
+        for i in range(len(nums)):
+            s+=nums[i]
+            if s>m:
+                m = s
+                end_idx = i
+            if s<0:
+                s = 0
+                str_idx = i+1
+                
+        print('sum:', m)
+        print('range:', str_idx, end_idx)
+        print('subarray:', nums[str_idx:end_idx])
