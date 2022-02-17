@@ -5,7 +5,7 @@ class Solution(object):
         :rtype: int
         """
         s = 0
-        m = min(nims)
+        m = min(nums)
         str_idx, end_idx = 0, 0
         for i in range(len(nums)):
             s+=nums[i]
