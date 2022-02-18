@@ -1,0 +1,18 @@
+class Solution(object):
+    def romanToInt(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        char_map = {'I':1, 'V':5, 'X':10, 'L':50, 'C':100, 'D':500, 'M':1000}
+        sum_num = 0
+        i = 0
+        for i in range(len(s)):
+            if (i+1)<len(s):
+                if char_map[s[i]]<char_map[s[i+1]]:
+                    sum_num -= char_map[s[i]]
+                else:
+                    sum_num += char_map[s[i]]
+            else:
+                sum_num += char_map[s[i]]
+        return sum_num
