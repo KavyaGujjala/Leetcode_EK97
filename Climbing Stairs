@@ -1,0 +1,68 @@
+class Solution(object):
+    def climbStairs(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        '''def brute_force(n):
+            if n == 1:
+                return 1
+            if n == 2:
+                return 2
+            else:
+                return brute_force(n-1)+ brute_force(n-2)
+            
+        out = brute_force(n)
+        return out'''
+        
+        '''cache = [0]* (n+1)
+        def memoization_test(n):
+            if n == 1:
+                return 1
+            if n == 2:
+                return 2
+            cache[0] = 1
+            cache[1] = 1
+            cache[2] = 2
+            
+            if cache[n]==0:
+                cache[n] = memoization_test(n-1) + memoization_test(n-2)
+                
+            return cache[n]
+        
+        out2 = memoization_test(n)
+        return out2
+        
+        cache = [0]* (n+1)
+        def top_down(n):
+            if n == 1:
+                return 1
+            if n == 2:
+                return 2
+            cache[0] = 1
+            cache[1] = 1
+            cache[2] = 2
+            
+            for i in range(3, n+1):
+                cache[i] = cache[i-1] + cache[i-2]
+                
+            return cache[n]
+        
+        out3 = top_down(n)
+        return out3'''
+        
+        
+        def bottom_up(n):
+            if n == 1:
+                return 1
+            first, second, sum_final = 1, 1, 0
+            
+            for i in range(2, n+1):
+                sum_final = first + second
+                first = second
+                second = sum_final
+                
+            return sum_final
+        
+        out4 = bottom_up(n)
+        return out4
