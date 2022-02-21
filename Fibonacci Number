@@ -1,0 +1,77 @@
+class Solution(object):
+    def fib(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        '''def brute_force(n):
+            if n == 0:
+                return 0
+            if n == 1:
+                return 1
+            if n>1:
+                return brute_force(n-1)+brute_force(n-2)
+            
+        out1 = brute_force(n)
+        return out1
+        
+        cache = [0]*(n+1)
+        
+        def memoization(n):
+            if n == 0:
+                return 0
+            if n == 1:
+                return 1
+            
+            cache[0] = 0
+            cache[1] = 1
+            cache[2] = 1
+            
+            if cache[n]==0:
+                cache[n]=memoization(n-1)+memoization(n-2)
+            
+            return cache[n]
+        
+        out2 = memoization(n)
+        return out2
+        
+        cache = [0]*(n+1)
+        def top_down(n):
+            if n == 0:
+                return 0
+            if n == 1:
+                return 1
+            
+            cache[0] = 0
+            cache[1] = 1
+            cache[2] = 1
+            
+            for i in range(3, n+1):
+                cache[i]=cache[i-1]+cache[i-2]
+                
+            return cache[n]
+        
+        out3 = top_down(n)
+        return out3'''
+        
+        def bottom_up(n):
+            if n == 0:
+                return 0
+            if n == 1:
+                return 1
+            
+            sum_num, first, second = 1, 0, 1
+            
+            for i in range(2, n+1):
+                sum_num = first+second
+                first = second
+                second = sum_num
+                
+            return sum_num
+        
+        out4 = bottom_up(n)
+        return out4
+
+            
+    
+        
