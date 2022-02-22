@@ -1,0 +1,74 @@
+class Solution(object):
+    def minCostClimbingStairs(self, cost):
+        """
+        :type cost: List[int]
+        :rtype: int
+        """
+        '''def mincost_recursion(n):
+            if n == 0:
+                return cost[0]
+            if n == 1:
+                return cost[1]
+            else:
+                return cost[n]+min(mincost_recursion(n-1), mincost_recursion(n-2))
+            
+        out = min(mincost_recursion(len(cost)-1),mincost_recursion(len(cost)-2))
+        print(out)
+        return out
+        
+        cache = [0]* (len(cost)+1)
+        def mincost_topdown(n):
+            if n == 0:
+                return cost[0]
+            if n == 1:
+                return cost[1]
+            cache[0] = cost[0]
+            cache[1] = cost[1]
+            if cache[n] == 0:
+                if n<len(cost):
+                    cache[n] = cost[n]+min(mincost_topdown(n-1),mincost_topdown(n-2))
+                else:
+                    cache[n] = min(mincost_topdown(n-1),mincost_topdown(n-2))
+                
+            return cache[n]
+        
+        out2 = mincost_topdown(len(cost))
+        return out2
+        
+        cache = [0]* (len(cost)+1)
+        def mincost_bottomup(n):
+            if n == 0:
+                return cost[0]
+            if n == 1:
+                return cost[1]
+            cache[0] = cost[0]
+            cache[1] = cost[1]
+            for i in range(2, n):
+                cache[i] = cost[i]+min(cache[i-1], cache[i-2])
+            cache[n] = min(cache[n-1], cache[n-2])    
+            
+            return cache[n]
+        
+        out3 = mincost_bottomup(len(cost))
+        return out3'''
+        
+        def mincost_finetuned(n):
+            if n == 0:
+                return cost[0]
+            if n == 1:
+                return cost[1]
+            
+            mincost_curr, first, second = 0, cost[0], cost[1]
+            
+            for i in range(2, len(cost)):
+                # print(i)
+                # print(mincost_curr, first, second)
+                mincost_curr = cost[i]+min(first, second)
+                first = second
+                second = mincost_curr
+                # print(mincost_curr, first, second)
+        
+            return min(first, second)
+        
+        out4 = mincost_finetuned(len(cost))
+        return out4
