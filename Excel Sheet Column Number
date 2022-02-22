@@ -1,0 +1,40 @@
+class Solution(object):
+    def titleToNumber(self, columnTitle):
+        """
+        :type columnTitle: str
+        :rtype: int
+        """
+        '''alpha_d = dict(zip([chr(x) for x in range(ord('A'), ord('Z')+1)], [y for y in range(1, 27)]))'''
+        
+        sn = 0
+        
+        if len(columnTitle)==1:
+            sn += (ord(columnTitle)-ord('A')+1)
+        else:
+            for i, c in enumerate(columnTitle):
+                # print(c, len(columnTitle[i:]))
+                sn += (ord(c)-ord('A')+1) * pow(26,len(columnTitle[i+1:]))
+        return sn
+            
+        
+        '''def column_num(c, sn):
+            if len(c)==1:
+                sn += alpha_d[c]
+                return sn
+            else:
+                sn += alpha_d[c[0]] * pow(26,len(c)-1)
+                c = c[1:]
+                sn = column_num(c, sn)
+                return sn
+                
+        out = column_num(columnTitle, sum_num)
+        return out
+        
+        
+        res = 0
+        for c in columnTitle:
+            print(res)
+            res = res*26 + ord(c)-ord('A')+1
+            print(res)
+        return res'''
+        
