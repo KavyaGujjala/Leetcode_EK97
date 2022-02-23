@@ -1,0 +1,28 @@
+class Solution(object):
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        def fine_tuned(n, nums1):
+            
+            curr, first, second = max(nums1[0], nums1[1]), nums1[0], max(nums1[0], nums1[1])
+            # check = if nums1[0]
+            for i in range(2, n):
+                # print(curr, first, second)
+                curr = max(first+nums1[i], second)
+                first = second
+                second = curr
+            return curr
+        if len(nums)==1:
+            return nums[0]
+        elif len(nums)==2:
+            return max(nums[0], nums[1])
+        else:
+            nums_1 = nums[1:]
+            out1 = fine_tuned(len(nums_1), nums_1)
+            nums_2 = nums[:-1]
+            out2 = fine_tuned(len(nums_2), nums_2)
+        
+            return max(out1, out2)
+        
