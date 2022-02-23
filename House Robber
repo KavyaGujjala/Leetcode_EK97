@@ -1,0 +1,44 @@
+class Solution(object):
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        '''cache = [0]* (len(nums))
+        def top_down(n):
+            if n==1:
+                return nums[0]
+            elif n==2:
+                return max(nums[0], nums[1])
+            else:
+                cache[0] = nums[0]
+                cache[1] = max(nums[0], nums[1])
+                
+                for i in range(2, n):
+                    cache[i] = max(cache[i-2]+nums[i], cache[i-1])
+                
+                return cache[n-1]
+                    
+        
+        out = top_down(len(nums))
+        return out'''
+        
+        def fine_tuned(n):
+            if n==1:
+                return nums[0]
+            elif n==2:
+                return max(nums[0], nums[1])
+            else:
+                curr, first, second = 0, nums[0], max(nums[0], nums[1])
+                for i in range(2, n):
+                    # print(curr, first, second)
+                    curr = max(nums[i]+first, second)
+                    first = second
+                    second = curr     
+                return curr
+            
+        out = fine_tuned(len(nums))
+        return out
+    
+    
+        
