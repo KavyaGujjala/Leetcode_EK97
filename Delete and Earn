@@ -1,0 +1,41 @@
+class Solution(object):
+    def deleteAndEarn(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        '''def bottom_up(nums):
+        
+            freq = [0]* (max(nums)+1)
+            for n in nums:
+                freq[n] += n
+            
+            cache = [0]* len(freq)
+            cache[0] = freq[0]
+            cache[1] = freq[1]
+
+            for i in range(2,len(freq)):
+                cache[i] = max(cache[i-2]+freq[i], cache[i-1])
+
+            return cache[len(freq)-1]
+        
+        out = bottom_up(nums)
+        return out'''
+        
+        def fine_tuned(nums):
+            freq = [0]* (max(nums)+1)
+            for n in nums:
+                freq[n] += n
+                
+            first, second = freq[0], freq[1]
+            curr = max(first, second)
+            
+            for i in range(2, len(freq)):
+                curr = max(first+freq[i], second)
+                first = second
+                second = curr
+                
+            return curr
+        
+        out = fine_tuned(nums)
+        return out
