@@ -1,0 +1,59 @@
+class LRUCache(object):
+
+    def __init__(self, capacity):
+        """
+        :type capacity: int
+        """
+        self.lrucache = {}
+        self.lrucount = []
+        self.cap = capacity
+        
+
+    def get(self, key):
+        """
+        :type key: int
+        :rtype: int
+        """
+        if key in self.lrucache:
+            if key in self.lrucount:
+                self.lrucount.remove(key)
+            self.lrucount.append(key)
+            return self.lrucache[key]
+        else:
+            return -1
+        
+
+    def put(self, key, value):
+        """
+        :type key: int
+        :type value: int
+        :rtype: None
+        """
+        # print(self.lrucache)
+        # print(self.lrucount)
+        if key in self.lrucache:
+            if key in self.lrucount:
+                self.lrucount.remove(key)
+            self.lrucount.append(key)
+            self.lrucache[key] = value
+        elif len(self.lrucache)<self.cap:
+            self.lrucache[key] = value
+            if key in self.lrucount:
+                self.lrucount.remove(key)
+            self.lrucount.append(key)
+        else:
+            self.lrucache.pop(self.lrucount.pop(0))
+            # self.lrucount.pop(min(self.lrucount, key=self.lrucount.get))
+            self.lrucache[key] = value
+            if key in self.lrucount:
+                self.lrucount.remove(key)
+            self.lrucount.append(key)
+        # print(self.lrucache)
+        # print(self.lrucount)
+        
+
+
+# Your LRUCache object will be instantiated and called as such:
+# obj = LRUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
