@@ -1,0 +1,29 @@
+class Solution(object):
+    def maxNumberOfFamilies(self, n, reservedSeats):
+        """
+        :type n: int
+        :type reservedSeats: List[List[int]]
+        :rtype: int
+        """
+        seats = collections.defaultdict(set)
+        # print(seats)
+        for m in reservedSeats:
+            if m[1] in [2,3,4,5]:
+                seats[m[0]].add(0)
+            if m[1] in [4,5,6,7]:
+                seats[m[0]].add(1)
+            if m[1] in [6,7,8,9]:
+                seats[m[0]].add(2)
+        res = 2*n
+        
+        # print(seats)
+        
+        for i in seats:
+            # print(i)
+            # print(seats[i])
+            if len(seats[i])==3:
+                res -=2
+            else:
+                res -=1
+        
+        return res
