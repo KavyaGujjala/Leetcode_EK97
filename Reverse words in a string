@@ -1,0 +1,41 @@
+import re
+class Solution(object):
+    def reverseWords(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        # s = s.strip()
+        # s = re.sub(r' +', ' ', s)
+        # print(s)
+        # s_list = s.split()
+        # return ' '.join(s.split()[::-1])
+        
+        chars = [t for t in s]
+        
+        slow, n = 0, len(chars)
+        
+        for fast in range(n):
+            if chars[fast]!=" " or (fast>0 and chars[fast]==" " and chars[fast-1]!=" "):
+                chars[slow] = chars[fast]
+                slow += 1
+                
+        if slow==0:
+            return ""
+        if chars[-1]==" ":
+            chars = chars[:slow-1]
+        else:
+            chars = chars[:slow]
+            
+        chars.reverse()
+        # print(chars)
+        
+        l, r = 0, len(chars)
+        
+        for p in range(r+1):
+            if p==r or chars[p]==" ":
+                chars[l:p] = chars[l:p][::-1]
+                l = p+1
+                
+        return "".join(chars)
+        
