@@ -1,0 +1,78 @@
+class TrieNode:
+    def __init__(self):
+        self.next = {}
+        self.word = ''
+
+class FileSystem(object):
+
+    def __init__(self):
+        self.root = TrieNode()
+        
+    def insert(self, path):
+        trie_crawl = self.root
+        for i in path.split('/')[1:]:
+            if not i in trie_crawl.next:
+                trie_crawl.next[i] = TrieNode()
+            trie_crawl = trie_crawl.next[i]
+            
+        return trie_crawl
+    
+    def search(self, path):
+        trie_crawl = self.root
+        for i in path.split('/')[1:]:
+            if not i in trie_crawl.next:
+                return trie_crawl
+            trie_crawl = trie_crawl.next[i]
+            
+        return trie_crawl 
+        
+
+    def ls(self, path):
+        """
+        :type path: str
+        :rtype: List[str]
+        """
+        temp_list = [path.split('/')[-1]]
+        trie_c = self.search(path)
+        if trie_c.word:
+            return temp_list
+        
+        temp_list = sorted(trie_c.next.keys())
+        
+        return temp_list
+        
+
+    def mkdir(self, path):
+        """
+        :type path: str
+        :rtype: None
+        """
+        self.insert(path)
+        
+
+    def addContentToFile(self, filePath, content):
+        """
+        :type filePath: str
+        :type content: str
+        :rtype: None
+        """
+        trie_c = self.insert(filePath)
+        trie_c.word += content
+        
+
+    def readContentFromFile(self, filePath):
+        """
+        :type filePath: str
+        :rtype: str
+        """
+        trie_c = self.search(filePath)
+        return trie_c.word
+        
+
+
+# Your FileSystem object will be instantiated and called as such:
+# obj = FileSystem()
+# param_1 = obj.ls(path)
+# obj.mkdir(path)
+# obj.addContentToFile(filePath,content)
+# param_4 = obj.readContentFromFile(filePath)
