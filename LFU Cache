@@ -1,0 +1,61 @@
+'''Least Frequently Used'''
+
+class LFUCache(object):
+
+    def __init__(self, capacity):
+        """
+        :type capacity: int
+        """
+        self.cap = capacity
+        self.min_freq = None
+        self.key_freq = {}
+        self.freq_keys = collections.defaultdict(collections.OrderedDict)
+        
+
+    def get(self, key):
+        """
+        :type key: int
+        :rtype: int
+        """
+        if key not in self.key_freq:
+            return -1
+        freq = self.key_freq[key]
+        val = self.freq_keys[freq][key]
+        del self.freq_keys[freq][key]
+        if not self.freq_keys[freq]:
+            if freq==self.min_freq:
+                self.min_freq+=1
+            del self.freq_keys[freq]
+            
+        self.key_freq[key] = freq+1
+        self.freq_keys[freq+1][key] = val
+        return val
+        
+
+    def put(self, key, value):
+        """
+        :type key: int
+        :type value: int
+        :rtype: None
+        """
+        if self.cap<=0:
+            return
+        if key in self.key_freq:
+            freq = self.key_freq[key]
+            self.freq_keys[freq][key] = value
+            self.get(key)
+            return
+        if len(self.key_freq)==self.cap:
+            del_key, del_val = self.freq_keys[self.min_freq].popitem(last=False)
+            del self.key_freq[del_key]
+            
+        self.key_freq[key] = 1
+        self.freq_keys[1][key] = value
+        self.min_freq = 1
+        
+
+
+# Your LFUCache object will be instantiated and called as such:
+# obj = LFUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
