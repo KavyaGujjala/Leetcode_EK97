@@ -1,0 +1,31 @@
+class Solution(object):
+    def tictactoe(self, moves):
+        """
+        :type moves: List[List[int]]
+        :rtype: str
+        """
+        n = 3
+        rows = [0]*n
+        cols = [0]*n
+        diag1, diag2 = 0, 0
+        
+        for idx, move in enumerate(moves):
+            i, j = move
+            if idx%2==0:
+                sign = 1
+            else:
+                sign = -1
+            rows[i] += sign
+            cols[j] += sign
+            if i==j:
+                diag1 += sign
+            if i+j==n-1:
+                diag2 += sign
+            if abs(rows[i])==3 or abs(cols[j])==3 or abs(diag1)==3 or abs(diag2)==3:
+                if sign==1:
+                    return 'A'
+                else:
+                    return 'B'
+                
+        return 'Draw' if len(moves)== (n*n) else 'Pending'
+        
