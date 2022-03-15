@@ -1,0 +1,38 @@
+class Solution(object):
+    def getLengthOfOptimalCompression(self, s, k):
+        """
+        :type s: str
+        :type k: int
+        :rtype: int
+        """
+        memo = {}
+        
+        def minlength(i, cur_ch, ch_ln, nb_del):
+            if i == len(s):
+                return 0
+            
+            key = (i, cur_ch, ch_ln, nb_del)
+            if key in memo:
+                return memo[key]
+            
+            del_ch_cost = float('inf')
+            if nb_del>0:
+                del_ch_cost = minlength(i+1, cur_ch, ch_ln, nb_del-1)
+
+            keep_ch_cost = 0
+            if s[i]==cur_ch:
+                extra_digit_cost = 0
+                if ch_ln==1 or (len(str(ch_ln+1))>len(str(ch_ln))):
+                    extra_digit_cost = 1
+
+                keep_ch_cost = extra_digit_cost + minlength(i+1, cur_ch, ch_ln+1, nb_del)
+
+            else:
+                keep_ch_cost = 1+minlength(i+1, s[i], 1, nb_del)
+
+
+            memo[key] = min(del_ch_cost, keep_ch_cost)
+            return memo[key]
+        
+        return minlength(0,'', 0, k)
+        
