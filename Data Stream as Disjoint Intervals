@@ -1,0 +1,40 @@
+class SummaryRanges(object):
+
+    def __init__(self):
+        self.intervals = []
+        self.seen = set()
+
+    def addNum(self, val):
+        """
+        :type val: int
+        :rtype: None
+        """
+        if val not in self.seen:
+            self.seen.add(val)
+            # self.intervals.append([val, val])
+            heapq.heappush(self.intervals, [val, val])
+        
+
+    def getIntervals(self):
+        """
+        :rtype: List[List[int]]
+        """
+        output = []
+        while self.intervals:
+            i = heapq.heappop(self.intervals)
+            if output and i[0]<= output[-1][1]+1:
+                output[-1][1] = max(i[1], output[-1][1])
+            else:
+                output.append(i)
+                
+        self.intervals = output
+                
+        return output
+        
+        
+
+
+# Your SummaryRanges object will be instantiated and called as such:
+# obj = SummaryRanges()
+# obj.addNum(val)
+# param_2 = obj.getIntervals()
