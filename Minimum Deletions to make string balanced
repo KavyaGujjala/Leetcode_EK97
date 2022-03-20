@@ -1,0 +1,22 @@
+'''You are given a string s consisting only of characters 'a' and 'b'.
+
+You can delete any number of characters in s to make s balanced. s is balanced if there is no pair of indices (i,j) such that i < j and s[i] = 'b' and s[j]= 'a'.
+
+Return the minimum number of deletions needed to make s balanced.'''
+
+class Solution(object):
+    def minimumDeletions(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        min_del = 0
+        bcount = 0
+        i = 0
+        for i in range(len(s)):
+            if s[i]=='a':
+                min_del = min(min_del+1, bcount)
+            else:
+                bcount += 1
+        return(min_del)
+        
