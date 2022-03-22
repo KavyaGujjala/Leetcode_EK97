@@ -1,0 +1,13 @@
+class Solution(object):
+    def angleClock(self, hour, minutes):
+        """
+        :type hour: int
+        :type minutes: int
+        :rtype: float
+        """
+        # h = ((hour%12)*30) + (minutes*0.5)
+        # m = minutes*6
+        angle = abs((hour*30) - (minutes*5.5))
+        # print(angle)
+            
+        return min(angle, 360.0-angle)
