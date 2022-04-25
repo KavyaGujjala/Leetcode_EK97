@@ -1,0 +1,19 @@
+'''Given an array of meeting time intervals intervals where intervals[i] = [starti, endi], return the minimum number of conference rooms required.'''
+
+class Solution(object):
+    def minMeetingRooms(self, intervals):
+        """
+        :type intervals: List[List[int]]
+        :rtype: int
+        """
+        import heapq
+        intervals.sort(key=lambda x:x[0])
+        heap = []
+        for x, y in intervals:
+            if not heap or heap[0]>x:
+                heapq.heappush(heap, y)
+            else:
+                heapq.heapreplace(heap, y)
+                
+        return len(heap)
+        
